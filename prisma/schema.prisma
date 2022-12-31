@@ -54,14 +54,19 @@ model User {
   emailVerified DateTime?
   image         String?
   username      String?   @unique
+  rootPageId    String?
   accounts      Account[]
   sessions      Session[]
+  Page          Page[]
 }
 
 model Page {
   id     String @id @default(cuid())
   nodeId String
   body   Json
+
+  ownner  User   @relation(fields: [ownerId], references: [id])
+  ownerId String
 }
 
 // model Apikey
