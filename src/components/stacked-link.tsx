@@ -7,6 +7,8 @@ export const DocumentLink = ({ id, children }) => {
 
   const onClick = (e) => {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     context.navigateToNewPage(id, context.pageIndex);
   };
 
@@ -14,6 +16,8 @@ export const DocumentLink = ({ id, children }) => {
     <a
       className="underline"
       onClick={onClick}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
       href={getPageLink(context.username, id)}
     >
       {children}
