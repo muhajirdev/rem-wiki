@@ -6,13 +6,22 @@ import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
 
+import { Inter } from "@next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <main className={`${inter.variable} font-sans`}>
+        <Component {...pageProps} />
+      </main>
     </SessionProvider>
   );
 };

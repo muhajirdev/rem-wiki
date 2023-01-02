@@ -6,13 +6,23 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+//   // Further reading:
+//   // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+//   // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+//   url      = env("DATABASE_URL")
+// }
 
 model Example {
   id        String   @id @default(cuid())
@@ -57,7 +67,7 @@ model User {
   rootPageId    String?
   accounts      Account[]
   sessions      Session[]
-  Page          Page[]
+  pages         Page[]
 }
 
 model Page {
