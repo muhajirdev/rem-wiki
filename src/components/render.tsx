@@ -31,7 +31,12 @@ export const RenderNode = ({ page, username, root }) => {
         {/* </Link> */}
         <div className="ml-4">
           {page.children.map((child: any) => (
-            <RenderNode key={child.id} page={child} username={username} />
+            <RenderNode
+              key={child.id}
+              page={child}
+              username={username}
+              root={false}
+            />
           ))}
         </div>
       </div>
@@ -43,7 +48,12 @@ export const RenderNode = ({ page, username, root }) => {
       </div>
       <div className="ml-4">
         {page.children.map((child: any) => (
-          <RenderNode key={child.id} page={child} username={username} />
+          <RenderNode
+            key={child.id}
+            page={child}
+            username={username}
+            root={false}
+          />
         ))}
       </div>
     </div>
