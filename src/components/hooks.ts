@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from "react";
 import throttle from "lodash.throttle";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { trpcClient } from "../utils/trpc";
+import { trpc, trpcClient } from "../utils/trpc";
 
 const throttleTime = 16;
 const obstructedOffset = 120;
@@ -50,9 +50,19 @@ export const useStackedPages = (
   const [scroll, containerWidth, setRef, containerRef] = useScroll();
   const router = useRouter();
   const [stackedPages, setStackedPages] = useState(pages);
+  const queryClient = useQueryClient();
 
   const getPage = async (pageId) => {
-    const page = await trpcClient.page.getPage.query({ id: pageId });
+    const key = trpc.page.getPage.getQueryKey({ id: pageId });
+    const page = await queryClient.fetchQuery({
+      queryKey: key,
+      staleTime: 1000000,
+      cacheTime: 1000000,
+      queryFn: async () => {
+        const data = await trpcClient.page.getPage.query({ id: pageId });
+        return data;
+      },
+    });
     return page;
   };
 
@@ -61,15 +71,19 @@ export const useStackedPages = (
     const newPages = [...persistedPages, page];
     setStackedPages(newPages);
 
-    router.push({
-      pathname: router.pathname,
-      query: {
-        pageId: excludeFirstPage
-          ? newPages.map((page) => page.body.id).slice(1)
-          : newPages.map((page) => page.body.id),
-        username: router.query.username,
+    router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          pageId: excludeFirstPage
+            ? newPages.map((page) => page.body.id).slice(1)
+            : newPages.map((page) => page.body.id),
+          username: router.query.username,
+        },
       },
-    });
+      null,
+      { shallow: true }
+    );
 
     setTimeout(() => {
       containerRef.current?.scrollTo({

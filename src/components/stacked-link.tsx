@@ -1,9 +1,26 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { getPageLink } from "../utils/navigation";
 import { StackContext } from "./stack-context";
+import { useQueryClient } from "@tanstack/react-query";
+import { trpc, trpcClient } from "../utils/trpc";
 
 export const DocumentLink = ({ id, children }) => {
   const context = useContext(StackContext);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const key = trpc.page.getPage.getQueryKey({ id });
+    queryClient.prefetchQuery({
+      queryKey: key,
+      staleTime: 1000000,
+      cacheTime: 1000000,
+      queryFn: async () => {
+        const data = await trpcClient.page.getPage.query({ id });
+        console.log({ data, key });
+        return data;
+      },
+    });
+  }, []);
 
   const onClick = (e) => {
     e.preventDefault();
