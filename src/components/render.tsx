@@ -26,7 +26,15 @@ export const RenderNode = ({ page, username, root }) => {
     return (
       <div className={clsx("leading-7")}>
         <DocumentLink id={page.id}>
-          <RenderText text={page.text} nodeType={"node"} root={root} />
+          <div
+            className={clsx({
+              "text-2xl": page.fontSize === "H1",
+              "text-xl": page.fontSize === "H2",
+              "text-lg": page.fontSize === "H3",
+            })}
+          >
+            <RenderText text={page.text} nodeType={"node"} root={root} />
+          </div>
         </DocumentLink>
         {/* </Link> */}
         <div className="ml-4">
@@ -43,7 +51,13 @@ export const RenderNode = ({ page, username, root }) => {
     );
   return (
     <div className={clsx("leading-7")}>
-      <div>
+      <div
+        className={clsx({
+          "text-2xl": page.fontSize === "H1",
+          "text-xl": page.fontSize === "H2",
+          "text-lg": page.fontSize === "H3",
+        })}
+      >
         <RenderText text={page.text} nodeType={page.type} root={root} />
       </div>
       <div className="ml-4">
