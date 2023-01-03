@@ -56,8 +56,8 @@ export const useStackedPages = (
     const key = trpc.page.getPage.getQueryKey({ id: pageId });
     const page = await queryClient.fetchQuery({
       queryKey: key,
-      staleTime: 1000000,
-      cacheTime: 1000000,
+      staleTime: 100000000,
+      cacheTime: 100000000,
       queryFn: async () => {
         const data = await trpcClient.page.getPage.query({ id: pageId });
         return data;
