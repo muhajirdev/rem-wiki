@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from "next";
 import { prisma } from "../../server/db/client";
-import clsx from "clsx";
 import { RenderPage } from "../../components/page";
+import { createNotFoundPageStub } from "../../constants/not-found-page";
 
 const UserHomepage = ({ username, pages }) => {
   return (
@@ -49,7 +49,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   });
 
-  const pages = pageIdsQuery.map((id) => _pages.find((p) => p.nodeId === id));
+  const pages = pageIdsQuery.map((id) => {
+    const page = _pages.find((p) => p.nodeId === id);
+    if (page) return page;
+    return createNotFoundPageStub(id);
+  });
 
   return {
     props: {

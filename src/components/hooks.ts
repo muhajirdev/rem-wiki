@@ -4,6 +4,7 @@ import throttle from "lodash.throttle";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { trpc, trpcClient } from "../utils/trpc";
+import { fetchPageOrReturnNotFoundStub } from "../utils/fetch";
 
 const throttleTime = 16;
 const obstructedOffset = 120;
@@ -59,8 +60,7 @@ export const useStackedPages = (
       staleTime: 100000000,
       cacheTime: 100000000,
       queryFn: async () => {
-        const data = await trpcClient.page.getPage.query({ id: pageId });
-        return data;
+        return fetchPageOrReturnNotFoundStub(pageId);
       },
     });
     return page;
