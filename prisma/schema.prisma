@@ -6,9 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 // generator client {
@@ -68,6 +67,15 @@ model User {
   accounts      Account[]
   sessions      Session[]
   pages         Page[]
+  apiKeys       ApiKey[]
+}
+
+model ApiKey {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  key String @unique
 }
 
 model Page {

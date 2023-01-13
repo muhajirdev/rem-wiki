@@ -36,9 +36,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   });
 
-  let pageIdsQuery = [user?.rootPageId as string];
+  let pageIdsQuery = [];
+  if (user?.rootPageId) {
+    pageIdsQuery.push(user?.rootPageId as string);
+  }
+
   if (pageIds) {
     pageIdsQuery = [...pageIdsQuery, ...pageIds];
+  }
+
+  if (pageIdsQuery.length === 0) {
+    return {
+      notFound: true,
+    };
   }
 
   const _pages = await prisma?.page.findMany({

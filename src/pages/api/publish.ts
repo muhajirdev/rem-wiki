@@ -28,7 +28,7 @@ function runMiddleware(
 }
 
 type BodySchema = {
-  username: string;
+  apiKey: string;
   rootId: string;
   documentMappings: {
     [key: string]: any;
@@ -42,9 +42,17 @@ const publish = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({ message: "can only accept POST request" });
   }
 
-  const { username, rootId, documentMappings } = req.body as BodySchema;
+  const { apiKey, rootId, documentMappings } = req.body as BodySchema;
 
-  const user = await prisma.user.findFirst();
+  const user = await prisma.user.findFirst({
+    where: {
+      apiKeys: {
+        some: {
+          key: apiKey,
+        },
+      },
+    },
+  });
 
   if (!user) {
     return res.status(400).json({ message: "user not found" });
