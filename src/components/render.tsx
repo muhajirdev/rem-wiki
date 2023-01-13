@@ -4,24 +4,40 @@ import { getPageLink } from "../utils/navigation";
 import { DocumentLink } from "./stacked-link";
 
 // TODO: handle case for content link
-const RenderText = ({ text, nodeType, root }) => {
+const RenderText = ({ text, nodeType, root, highlight }) => {
   return (
-    <div
+    <span
       className={clsx({
         "text-blue-700": nodeType === "doc" && !root,
         "text-gray-800": nodeType === "page",
-        "mb-2 text-xl": root,
+        "mb-2 text-3xl font-semibold tracking-wide": root,
+        "text-slate-400": !root && !highlight,
+        "text-slate-100": highlight,
       })}
     >
-      {text
-        .filter((x) => x.type === "text")
-        .map((x) => x.content)
-        .join("")}
-    </div>
+      {text.map((x) => {
+        if (x.type === "text") return x.content;
+        if (x.type === "link") {
+          return (
+            <DocumentLink id={x.id} key={x.id}>
+              <RenderText
+                text={x.content}
+                nodeType={x.nodeType}
+                root={root}
+                highlight={true}
+              />
+            </DocumentLink>
+          );
+        }
+      })}
+    </span>
   );
 };
 
 export const RenderNode = ({ page, username, root }) => {
+  const isHeader =
+    page.fontSize === "H1" || page.fontSize === "H2" || page.fontSize === "H3";
+
   if (page.type === "doc" && !root)
     return (
       <div className={clsx("leading-7")}>
@@ -33,11 +49,15 @@ export const RenderNode = ({ page, username, root }) => {
               "text-lg": page.fontSize === "H3",
             })}
           >
-            <RenderText text={page.text} nodeType={"node"} root={root} />
+            <RenderText
+              text={page.text}
+              nodeType={"node"}
+              root={root}
+              highlight
+            />
           </div>
         </DocumentLink>
-        {/* </Link> */}
-        <div className="ml-4">
+        <div className={clsx(!root && "ml-4")}>
           {page.children.map((child: any) => (
             <RenderNode
               key={child.id}
@@ -56,11 +76,18 @@ export const RenderNode = ({ page, username, root }) => {
           "text-2xl": page.fontSize === "H1",
           "text-xl": page.fontSize === "H2",
           "text-lg": page.fontSize === "H3",
+          "mb-4": root,
+          "mb-2": !root,
         })}
       >
-        <RenderText text={page.text} nodeType={page.type} root={root} />
+        <RenderText
+          text={page.text}
+          nodeType={page.type}
+          root={root}
+          highlight={isHeader}
+        />
       </div>
-      <div className="ml-4">
+      <div className={clsx(!root && "ml-4")}>
         {page.children.map((child: any) => (
           <RenderNode
             key={child.id}

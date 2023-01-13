@@ -33,7 +33,7 @@ export const DocumentLink = ({ id, children }) => {
 
   return (
     <a
-      className="underline"
+      className="hover:underline"
       onClick={onClick}
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore

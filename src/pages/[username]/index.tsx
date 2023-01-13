@@ -2,12 +2,15 @@ import type { GetServerSideProps } from "next";
 import { prisma } from "../../server/db/client";
 import { RenderPage } from "../../components/page";
 import { createNotFoundPageStub } from "../../constants/not-found-page";
+import Link from "next/link";
 
 const UserHomepage = ({ username, pages }) => {
   return (
-    <div>
-      <div className="px-10 pt-8">
-        <h1 className="mb-8 text-lg">{username}</h1>
+    <div className="bg-slate-900">
+      <div className="mb-8 border-b border-slate-800 px-10 py-6">
+        <a href={`/${username}`}>
+          <h1 className="text-lg text-white">{username}</h1>
+        </a>
       </div>
       <RenderPage
         pages={pages}

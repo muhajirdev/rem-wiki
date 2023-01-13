@@ -25,8 +25,8 @@ export const RenderPage = ({ pages, username, excludeFirstPageParam }) => {
         >
           <div
             className={clsx(
-              "sticky bg-white first:shadow-none",
-              stackedPagesState[index].overlay && "shadow-xl"
+              "sticky bg-slate-900 text-white first:shadow-none",
+              stackedPagesState[index].overlay && "shadow-2xl"
             )}
             style={{
               left: 40 * index,
@@ -38,7 +38,7 @@ export const RenderPage = ({ pages, username, excludeFirstPageParam }) => {
               <div className="w-10 pt-6">
                 <div
                   className={clsx(
-                    "rotate-90 whitespace-nowrap transition",
+                    "rotate-90 whitespace-nowrap text-slate-400",
                     stackedPagesState[index].obstructed
                       ? "opacity-100"
                       : "opacity-0"

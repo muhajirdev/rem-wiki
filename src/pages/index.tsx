@@ -24,12 +24,12 @@ export default Home;
 
 const LoggedOut = () => {
   return (
-    <div className="flex flex-col justify-center text-lg">
+    <div className="flex flex-col justify-center text-lg text-white">
       <h1>Welcome To Rem wiki</h1>
 
       <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-        onClick={() => signIn()}
+        className="mt-4 rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+        onClick={() => signIn("google")}
       >
         Sign in
       </button>
@@ -48,21 +48,21 @@ const UsernameForm = () => {
     );
   };
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-white">
       <div className="mb-4 text-xl">
-        Welcome to Rem Wiki. What username you want to use?
+        Welcome to Rem Wiki. What username do you want to use?
       </div>
       <form onSubmit={onSubmit} className="flex space-x-4">
         <input
           type="text"
           value={username}
           placeholder="Your username"
-          className="flex-1 rounded-lg border px-4 py-2"
+          className="flex-1 rounded-lg bg-black/20 px-4 py-4 outline-none"
           onChange={(e) => setUsername(e.target.value)}
         />
         <button
           type="submit"
-          className="rounded-lg bg-black px-4 py-2 text-white"
+          className="rounded-lg bg-slate-200 px-4 py-2 text-slate-900 text-white"
         >
           Submit
         </button>
@@ -76,14 +76,14 @@ const DigitalGardenInformation = () => {
   const url = `https://rem.wiki/${usernameAndApiKey?.username}`;
   const apiKey = usernameAndApiKey?.apiKey;
   return (
-    <div className="space-y-4">
-      <div>
-        Your api key:{" "}
-        <code className="rounded-lg bg-slate-200 p-2">{apiKey}</code>
+    <div className="space-y-8 text-white">
+      <div className="space-x-4">
+        <span>Your API Key:</span>
+        <code className="rounded-lg bg-black/20 p-4">{apiKey}</code>
       </div>
       <div className="flex justify-center">
         <a
-          className="flex rounded-lg bg-black px-4 py-2 font-semibold text-white"
+          className="flex rounded-full bg-slate-100 px-4 py-2 font-semibold text-slate-900 "
           href={url}
         >
           Go to my garden
@@ -107,7 +107,7 @@ const LoggedIn = () => {
       )}
 
       <button
-        className="mt-16 rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+        className="mt-16 rounded-full bg-white/10 px-10 py-3 font-semibold text-slate-400 no-underline transition hover:bg-white/20"
         onClick={() => signOut()}
       >
         Sign out
