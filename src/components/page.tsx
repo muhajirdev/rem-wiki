@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import Head from "next/head";
 import { useStackedPages } from "./hooks";
 import { RenderNode } from "./render";
 import { StackContext } from "./stack-context";
@@ -16,8 +17,13 @@ export const RenderPage = ({ pages, username, excludeFirstPageParam }) => {
     obstructedPageWidth: 40,
   });
 
+  const lastPage = stackedPages[stackedPages.length - 1];
+
   return (
     <div className="flex min-h-screen overflow-x-auto" ref={scrollContainer}>
+      <Head>
+        <title>{lastPage.body.title}</title>
+      </Head>
       {stackedPages.map((page, index) => (
         <StackContext.Provider
           key={page.id}
