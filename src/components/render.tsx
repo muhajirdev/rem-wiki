@@ -17,6 +17,24 @@ const RenderText = ({ text, nodeType, root, highlight }) => {
     >
       {text.map((x) => {
         if (x.type === "text") return x.content;
+        if (x.type === "link" && x.url) {
+          return (
+            <a
+              rel="noreferrer"
+              href={x.url}
+              target="_blank"
+              id={x.id}
+              key={x.id}
+            >
+              <RenderText
+                text={x.content}
+                nodeType={x.nodeType}
+                root={root}
+                highlight={true}
+              />
+            </a>
+          );
+        }
         if (x.type === "link") {
           return (
             <DocumentLink id={x.id} key={x.id}>
