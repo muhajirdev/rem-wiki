@@ -7,6 +7,7 @@ import { trpc } from "../utils/trpc";
 import "../styles/globals.css";
 
 import { Inter } from "@next/font/google";
+import { ThemeContext, useThemeInit } from "../components/theme";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,11 +18,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const [theme, setTheme] = useThemeInit();
+
   return (
     <SessionProvider session={session}>
-      <main className={`${inter.variable} bg-slate-900 font-sans`}>
-        <Component {...pageProps} />
-      </main>
+      <ThemeContext.Provider value={[theme, setTheme]}>
+        <main className={`${inter.variable} bg-slate-900 font-sans`}>
+          <Component {...pageProps} />
+        </main>
+      </ThemeContext.Provider>
     </SessionProvider>
   );
 };

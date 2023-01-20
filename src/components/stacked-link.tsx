@@ -2,8 +2,7 @@ import { useContext, useEffect } from "react";
 import { getPageLink } from "../utils/navigation";
 import { StackContext } from "./stack-context";
 import { useQueryClient } from "@tanstack/react-query";
-import { trpc, trpcClient } from "../utils/trpc";
-import { createNotFoundPageStub } from "../constants/not-found-page";
+import { trpc } from "../utils/trpc";
 import { fetchPageOrReturnNotFoundStub } from "../utils/fetch";
 
 export const DocumentLink = ({ id, children }) => {
@@ -18,7 +17,6 @@ export const DocumentLink = ({ id, children }) => {
       cacheTime: 100000000,
       queryFn: async () => {
         const data = await fetchPageOrReturnNotFoundStub(id);
-        console.log(data);
         return data;
       },
     });

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import throttle from "lodash.throttle";
+import queryString from "query-string";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { trpc, trpcClient } from "../utils/trpc";
@@ -53,6 +54,39 @@ export const useStackedPages = (
   const [stackedPages, setStackedPages] = useState(pages);
   const queryClient = useQueryClient();
 
+  const handleRouteChange = useCallback(() => {
+    const params = queryString.parse(window.location.search);
+    let pageId = [];
+    if (typeof params.pageId === "string") {
+      pageId.push(params.pageId);
+    }
+    if (Array.isArray(params.pageId)) {
+      pageId = params.pageId;
+    }
+
+    // remove page that's not inlcuded in the query params
+
+    setStackedPages((previousStackedPages) => {
+      return previousStackedPages.filter((page, index) => {
+        const isRoot = index === 0;
+        if (isRoot) return true; // always keep the root
+
+        if (pageId.includes(page.body.id)) {
+          return true;
+        }
+
+        return false;
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [handleRouteChange, router.events]);
+
   const getPage = async (pageId) => {
     const key = trpc.page.getPage.getQueryKey({ id: pageId });
     const page = await queryClient.fetchQuery({
@@ -94,8 +128,14 @@ export const useStackedPages = (
     }, 100);
   };
 
+  const scrollToTop = () => {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  };
+
   const navigateToNewPage = async (pageId: string, fromPageIndex: number) => {
     const page = await getPage(pageId);
+    scrollToTop();
     addPage(page, fromPageIndex);
   };
 
@@ -110,6 +150,8 @@ export const useStackedPages = (
     //     0
     //   ) || scroll + containerWidth < pageWidth * i + obstructedOffset,
   }));
+
+  console.log({ newStackedPages: stackedPages });
 
   return {
     stackedPages,

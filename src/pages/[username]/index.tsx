@@ -2,21 +2,26 @@ import type { GetServerSideProps } from "next";
 import { prisma } from "../../server/db/client";
 import { RenderPage } from "../../components/page";
 import { createNotFoundPageStub } from "../../constants/not-found-page";
-import Link from "next/link";
+import { useTheme } from "../../components/theme";
+import { ThemeSwitcher } from "../../components/theme-switcher";
 
 const UserHomepage = ({ username, pages }) => {
+  const [theme] = useTheme();
   return (
-    <div className="bg-slate-900">
-      <div className="mb-8 border-b border-slate-800 px-10 py-6">
-        <a href={`/${username}`}>
-          <h1 className="text-lg text-white">{username}</h1>
-        </a>
+    <div className={theme}>
+      <div className={"bg-white dark:bg-slate-900"}>
+        <div className="mb-8 flex justify-between border-b px-4 py-6 dark:border-slate-800 md:px-10">
+          <a href={`/${username}`}>
+            <h1 className="text-lg dark:text-white">{username}</h1>
+          </a>
+          <ThemeSwitcher />
+        </div>
+        <RenderPage
+          pages={pages}
+          username={username}
+          excludeFirstPageParam={true}
+        />
       </div>
-      <RenderPage
-        pages={pages}
-        username={username}
-        excludeFirstPageParam={true}
-      />
     </div>
   );
 };

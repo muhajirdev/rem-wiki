@@ -31,17 +31,20 @@ export const RenderPage = ({ pages, username, excludeFirstPageParam }) => {
         >
           <div
             className={clsx(
-              "sticky bg-slate-900 text-white first:shadow-none",
+              "hidden last:block md:block",
+              "w-full max-w-full md:w-[600px] md:min-w-[600px]",
+              "px-4 pb-16 md:px-0",
+              "sticky bg-white text-slate-700 first:shadow-none dark:bg-slate-900 dark:text-slate-400",
               stackedPagesState[index].overlay && "shadow-2xl"
             )}
             style={{
               left: 40 * index,
-              minWidth: PAGE_WIDTH,
-              width: PAGE_WIDTH,
+              // minWidth: PAGE_WIDTH,
+              // width: PAGE_WIDTH,
             }}
           >
             <div className="flex h-full">
-              <div className="w-10 pt-6">
+              <div className={clsx("pt-6 md:w-10", "hidden md:block")}>
                 <div
                   className={clsx(
                     "rotate-90 whitespace-nowrap text-slate-400",

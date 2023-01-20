@@ -3,16 +3,14 @@ import Link from "next/link";
 import { getPageLink } from "../utils/navigation";
 import { DocumentLink } from "./stacked-link";
 
-// TODO: handle case for content link
-const RenderText = ({ text, nodeType, root, highlight }) => {
+const RenderText = ({ text, nodeType, root, link, header }) => {
   return (
     <span
       className={clsx({
-        "text-blue-700": nodeType === "doc" && !root,
-        "text-gray-800": nodeType === "page",
-        "mb-2 text-3xl font-semibold tracking-wide": root,
-        "text-slate-400": !root && !highlight,
-        "text-slate-100": highlight,
+        "mb-2 text-3xl font-semibold tracking-wide text-black dark:text-white":
+          root,
+        "text-blue-500 dark:text-blue-300": link,
+        "text-black dark:text-white": header,
       })}
     >
       {text.map((x) => {
@@ -30,7 +28,8 @@ const RenderText = ({ text, nodeType, root, highlight }) => {
                 text={x.content}
                 nodeType={x.nodeType}
                 root={root}
-                highlight={true}
+                link={true}
+                header={false}
               />
             </a>
           );
@@ -42,7 +41,8 @@ const RenderText = ({ text, nodeType, root, highlight }) => {
                 text={x.content}
                 nodeType={x.nodeType}
                 root={root}
-                highlight={true}
+                link={true}
+                header={false}
               />
             </DocumentLink>
           );
@@ -71,7 +71,8 @@ export const RenderNode = ({ page, username, root }) => {
               text={page.text}
               nodeType={"node"}
               root={root}
-              highlight
+              header={false}
+              link={true}
             />
           </div>
         </DocumentLink>
@@ -102,7 +103,8 @@ export const RenderNode = ({ page, username, root }) => {
           text={page.text}
           nodeType={page.type}
           root={root}
-          highlight={isHeader}
+          header={isHeader}
+          link={false}
         />
       </div>
       <div className={clsx(!root && "ml-4")}>
