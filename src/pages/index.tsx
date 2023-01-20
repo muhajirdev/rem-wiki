@@ -1,4 +1,3 @@
-import e from "cors";
 import { type NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
@@ -98,13 +97,26 @@ const DigitalGardenInformation = () => {
         <span>Your API Key:</span>
         <code className="rounded-lg bg-black/20 p-4">{apiKey}</code>
       </div>
-      <div className="flex justify-center">
+      <div className="flex items-center justify-center space-x-4">
         <a
           className="flex rounded-full bg-slate-100 px-4 py-2 font-semibold text-slate-900 "
           href={url}
         >
           Go to my garden
         </a>
+      </div>
+      <div className="text-center">
+        Custom domain? Ping me on{" "}
+        <button
+          onClick={() => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            window?.Tawk_API?.toggle();
+          }}
+          className="font-bold underline"
+        >
+          live chat
+        </button>
       </div>
     </div>
   );
