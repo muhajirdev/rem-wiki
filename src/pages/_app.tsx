@@ -23,7 +23,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <ThemeContext.Provider value={[theme, setTheme]}>
-        <main className={`${inter.variable} bg-slate-900 font-sans`}>
+        <main className={`${inter.variable} bg-slate-900 font-sans text-white`}>
           <Component {...pageProps} />
         </main>
       </ThemeContext.Provider>

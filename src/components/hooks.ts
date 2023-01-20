@@ -151,8 +151,6 @@ export const useStackedPages = (
     //   ) || scroll + containerWidth < pageWidth * i + obstructedOffset,
   }));
 
-  console.log({ newStackedPages: stackedPages });
-
   return {
     stackedPages,
     addPage,

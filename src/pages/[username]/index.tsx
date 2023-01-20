@@ -12,7 +12,7 @@ const UserHomepage = ({ username, pages }) => {
       <div className={"bg-white dark:bg-slate-900"}>
         <div className="mb-8 flex justify-between border-b px-4 py-6 dark:border-slate-800 md:px-10">
           <a href={`/${username}`}>
-            <h1 className="text-lg dark:text-white">{username}</h1>
+            <h1 className="text-lg text-black dark:text-white">{username}</h1>
           </a>
           <ThemeSwitcher />
         </div>
