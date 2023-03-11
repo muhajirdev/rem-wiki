@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       <main className="flex min-h-screen flex-col items-center justify-center">
         <Auth />
       </main>
-      <Script
+      {/* <Script
         id="live-chat"
         dangerouslySetInnerHTML={{
           __html: `
@@ -31,7 +31,7 @@ s0.parentNode.insertBefore(s1,s0);
 })();
       `,
         }}
-      ></Script>
+      ></Script> */}
     </>
   );
 };
@@ -106,7 +106,13 @@ const DigitalGardenInformation = () => {
         </a>
       </div>
       <div className="text-center">
-        Custom domain? Ping me on{" "}
+        <a
+          className="rounded-full bg-slate-100 px-4 py-2 font-semibold text-slate-900"
+          href="https://discord.gg/PJxJbWQR"
+        >
+          Join Discord server
+        </a>
+        {/* Custom domain? Ping me on{" "}
         <button
           onClick={() => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -116,7 +122,7 @@ const DigitalGardenInformation = () => {
           className="font-bold underline"
         >
           live chat
-        </button>
+        </button> */}
       </div>
     </div>
   );
