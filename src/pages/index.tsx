@@ -108,7 +108,7 @@ const DigitalGardenInformation = () => {
       <div className="text-center">
         <a
           className="rounded-full bg-slate-100 px-4 py-2 font-semibold text-slate-900"
-          href="https://discord.gg/PJxJbWQR"
+          href="https://discord.gg/vCbqvugVEm"
         >
           Join Discord server
         </a>
