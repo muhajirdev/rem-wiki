@@ -3,9 +3,7 @@ import Cors from "cors";
 
 import { prisma } from "../../server/db/client";
 
-const cors = Cors({
-  methods: ["POST", "GET", "HEAD"],
-});
+const cors = Cors();
 
 function runMiddleware(
   req: NextApiRequest,
