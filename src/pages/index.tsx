@@ -90,29 +90,29 @@ const UsernameForm = () => {
 const DigitalGardenInformation = () => {
   const { data: usernameAndApiKey } = trpc.auth.getUsernameAndApiKey.useQuery();
   const url = `https://rem.wiki/${usernameAndApiKey?.username}`;
-  // const apiKey = usernameAndApiKey?.apiKey;
+  const apiKey = usernameAndApiKey?.apiKey;
   return (
     <div className="space-y-8 text-white">
-      {/* <div className="space-x-4">
+      <div className="space-x-4">
         <span>Your API Key:</span>
         <code className="rounded-lg bg-black/20 p-4">{apiKey}</code>
-      </div> */}
-      {/* <div className="flex items-center justify-center space-x-4">
+      </div>
+      <div className="flex items-center justify-center space-x-4">
         <a
           className="flex rounded-full bg-slate-100 px-4 py-2 font-semibold text-slate-900 "
           href={url}
         >
           Go to my garden
         </a>
-      </div> */}
+      </div>
       <div className="text-center">
-        <a
+        {/* <a
           className="rounded-full bg-slate-100 px-4 py-2 font-semibold text-slate-900"
           href="https://discord.gg/up88Ssv3bM"
         >
           Join Discord server to request API Key
-        </a>
-        {/* Custom domain? Ping me on{" "}
+        </a> */}
+        Custom domain? Ping me on{" "}
         <button
           onClick={() => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -122,7 +122,7 @@ const DigitalGardenInformation = () => {
           className="font-bold underline"
         >
           live chat
-        </button> */}
+        </button>
       </div>
     </div>
   );
