@@ -112,7 +112,9 @@ const DigitalGardenInformation = () => {
         >
           Join Discord server
         </a>
-        <div>Custom domain? Ping me @muhajirdev on discord</div>
+        <div className="mt-8">
+          Custom domain? Ping me @muhajirdev on discord
+        </div>
         {/* <button
           onClick={() => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
