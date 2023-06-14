@@ -106,14 +106,14 @@ const DigitalGardenInformation = () => {
         </a>
       </div>
       <div className="text-center">
-        {/* <a
+        <a
           className="rounded-full bg-slate-100 px-4 py-2 font-semibold text-slate-900"
           href="https://discord.gg/up88Ssv3bM"
         >
-          Join Discord server to request API Key
-        </a> */}
-        Custom domain? Ping me on{" "}
-        <button
+          Join Discord server
+        </a>
+        Custom domain? Ping me @muhajirdev on discord
+        {/* <button
           onClick={() => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -122,7 +122,7 @@ const DigitalGardenInformation = () => {
           className="font-bold underline"
         >
           live chat
-        </button>
+        </button> */}
       </div>
     </div>
   );
